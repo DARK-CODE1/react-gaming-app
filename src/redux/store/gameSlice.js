@@ -45,8 +45,8 @@ const gameSlice = createSlice({
 
 export const selectAllGames=(state)=> state.game.games.results;
 export const selectAllGamesStatus=(state)=> state.game.gamesStatus;
-export const selectAllNextPage=(state)=> state.game.games.next;
-export const selectAllPrevPage=(state)=> state.game.games.Previous;
+export const selectGamesNextPage=(state)=> state.game.games.next;
+export const selectGamesPrevPage=(state)=> state.game.games.Previous;
 export const selectSnigleGame=(state)=> state.game.gamesSnigle;
 export const selectSnigleGameStatus=(state)=> state.game.gamesSnigleStatus;
 export const selectGamesDetails=(state)=> state.game.gamesDetails;
