@@ -19,12 +19,11 @@ const HomePage = () => {
   }, [dispatch])
 
   const rendredPopularGames = <>
-    <GameList sliceValue={9} games={games}/>
+    <GameList sliceValue={9} games={games} />
     <div className="d-flex justify-content-center">
       <Link to='/games' className='section-btn'>See More Games</Link>
     </div>
   </>;
-
 
   return (
     <HomeWrapper>
