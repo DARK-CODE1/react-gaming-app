@@ -1,9 +1,43 @@
 import React from 'react';
+import styled from "styled-components";
+import { Banner, Preloader, Title } from '../../components/common';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAllGames, selectAllGamesStatus } from '../../redux/store/gameSlice';
+import { useEffect } from 'react';
+import { fetchAsyncGames } from '../../redux/utils/gameUtils';
+import { STATUS } from '../../utils/status';
+import GameList from '../../components/game/GameList';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const games = useSelector(selectAllGames);
+  const gamesStatus = useSelector(selectAllGamesStatus);
+
+  useEffect(() => {
+    dispatch(fetchAsyncGames());
+  }, [dispatch])
+
+  const rendredPopularGames = <>
+    <GameList sliceValue={9} games={games}/>
+    <div className="d-flex justify-content-center">
+      <Link to='/games' className='section-btn'>See More Games</Link>
+    </div>
+  </>;
+
 
   return (
     <HomeWrapper>
+      <Banner />
+
+      <section className='section sc-popular'>
+        <div className="container">
+          <Title titleName={{ firstText: 'Top popular', secondText: 'Games' }} />
+          {
+            gamesStatus === STATUS.LOADING ? <Preloader /> : games?.length > 0 ? rendredPopularGames : 'No Games Found!'
+          }
+        </div>
+      </section>
     </HomeWrapper>
   )
 }

@@ -1,9 +1,25 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home, Error, ViewGameAll, ViewGameDetails, ViewStoreAll, ViewStoreDetails, ViewCreatorAll } from "../views/index";
+import BaseLayout from "../layouts/BaseLayout";
 
 const AppRouter = () => {
   return (
     <div>
-      
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<BaseLayout />}>
+            <Route path='/' element={<Home />} />
+            <Route path='/error' element={<Error />} />
+            <Route path='/games' element={<ViewGameAll />} />
+            <Route path='/games/:gameId' element={<ViewGameDetails />} />
+            <Route path='/stores' element={<ViewStoreAll />} />
+            <Route path='/stores/:storesId' element={<ViewStoreDetails />} />
+            <Route path='/creators' element={<ViewCreatorAll />} />
+            <Route path='*' element={<Error />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

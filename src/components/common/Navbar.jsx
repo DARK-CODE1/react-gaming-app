@@ -1,8 +1,74 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { BsSteam, BsRssFill, BsTwitch, BsYoutube } from "react-icons/bs";
+import { MdClose } from "react-icons/md";
+import { useDispatch,useSelector } from "react-redux";
+import { selectSidebarStatus, setSidebarOff, setSidebarOn } from "../../redux/store/sidebarSlice";
 
 const Navbar = () => {
+  const dispatch=useDispatch();
+  const sidebarStatus=useSelector(selectSidebarStatus);
   return (
-    <NavbarWrapper>
+    <NavbarWrapper className='d-flex align-items-center'>
+      <div className="container w-100">
+        <div className="navbar-content">
+          <div className="brand-and-toggler d-flex align-items-center justify-content-between">
+            <Link to='/' className='navbar-brand text-white text-uppercase no-wrap'>cool <span>games</span></Link>
+            <button type='button' className='navbar-show-btn text-white' onClick={()=>dispatch(setSidebarOn())}>
+              <HiOutlineMenuAlt3 size={25} />
+            </button>
+          </div>
+          <div className={`navbar-collapse ${sidebarStatus? 'show':''}`}>
+            <button type='button' className='navbar-hide-btn' onClick={()=>dispatch(setSidebarOff())}>
+              <MdClose size={25} />
+            </button>
+
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link to='/' className='nav-link'>Home</Link>
+              </li>
+              <li className="nav-item">
+                <Link to='/crators' className='nav-link'>Crators</Link>
+              </li>
+              <li className="nav-item">
+                <Link to='/stores' className='nav-link'>Stores</Link>
+              </li>
+              <li className="nav-item">
+                <Link to='/games' className='nav-link'>Games</Link>
+              </li>
+            </ul>
+
+            <ul className="connect-list d-flex align-items-center justify-content-between mt-5 flex-wrap">
+              <li className="text-uppercase fw-7 w-100 connect-text mb-2">
+                connect
+              </li>
+              <li className="connect-item">
+                <Link to='/' className='connect-link'>
+                  <BsRssFill />
+                </Link>
+              </li>
+              <li className="connect-item">
+                <Link to='/' className='connect-link'>
+                  <BsSteam size={18} />
+                </Link>
+              </li>
+              <li className="connect-item">
+                <Link to='/' className='connect-link'>
+                  <BsTwitch size={18} />
+                </Link>
+              </li>
+              <li className="connect-item">
+                <Link to='/' className='connect-link'>
+                  <BsYoutube size={19} />
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </NavbarWrapper>
   )
 }
