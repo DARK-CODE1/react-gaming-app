@@ -1,11 +1,11 @@
-import { React, useEffect, useState } from 'react';
-import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAllGames, selectAllGamesStatus, selectGamesNextPage, selectGamesPrevPage } from "../../redux/store/gameSlice";
+import styled from 'styled-components';
+import { selectAllGames, selectAllGamesStatus, selectGamesNextPage, selectGamesPrevPage } from '../../redux/store/gameSlice';
+import { useEffect, useState } from 'react';
 import { fetchAsyncGames } from '../../redux/utils/gameUtils';
 import { Pagination, Preloader, Title } from '../../components/common';
 import { STATUS } from '../../utils/status';
-import GameList from '../../components/game/GameList';
+import { GameList } from '../../components/game';
 
 const GameAllPage = () => {
   const dispatch = useDispatch();
@@ -15,23 +15,27 @@ const GameAllPage = () => {
   const prevPage = useSelector(selectGamesPrevPage);
   const [page, setPage] = useState(1);
 
-
   useEffect(() => {
     dispatch(fetchAsyncGames(page));
-  }, [page])
+  }, [dispatch, page]);
 
-  const pageHandler = (pageValue) => setPage(pageValue)
+
+  const pageHandler = (pageValue) => setPage(pageValue);
 
   return (
     <GameAllPageWrapper>
-      <div className="sc-games section">
-        <div className="container">
-          <Title titleName={{ firstText: 'all', secondText: 'games' }} />
+      <div className='sc-games section'>
+        <div className='container'>
+          <Title titleName={{
+            firstText: "all",
+            secondText: "games"
+          }} />
+
           {
             gamesStatus === STATUS.LOADING ? <Preloader /> : games?.length > 0 ? <>
-              <GameList games={games} />
-              <Pagination pageHandler={pageHandler} nextPage={nextPage} prevPage={prevPage} currentPage={page} />
-            </> : 'No Games Found'
+              <GameList games = { games } />
+              <Pagination pageHandler = { pageHandler } nextPage = { nextPage } prevPage = { prevPage } currentPage = { page } />
+            </> : "No games found!"
           }
         </div>
       </div>

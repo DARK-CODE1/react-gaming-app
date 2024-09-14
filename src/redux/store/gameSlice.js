@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { STATUS } from "../../utils/status";
-import { fetchAsyncGames, fetchAsyncGamesDetails } from "../utils/gameUtils";
+import { fetchAsyncGames, fetchAsyncGameDetails } from "../utils/gameUtils";
 
 const initialState = {
     games: [],
     gamesStatus: STATUS.IDLE,
-    gameSingle: [],
-    gameSingleStatus: STATUS.IDLE,
+    gamesSingle: [],
+    gamesSingleStatus: STATUS.IDLE,
     gameDetails: []
 }
 
@@ -27,28 +27,31 @@ const gameSlice = createSlice({
             state.gamesStatus = STATUS.FAILED;
         })
 
-        builder.addCase(fetchAsyncGamesDetails.pending, (state) => {
+        builder.addCase(fetchAsyncGameDetails.pending, (state) => {
             state.gameSingleStatus = STATUS.LOADING;
         })
 
-        builder.addCase(fetchAsyncGamesDetails.fulfilled, (state, action) => {
+        builder.addCase(fetchAsyncGameDetails.fulfilled, (state, action) => {
             state.gameSingle = action.payload;
             state.gameSingleStatus = STATUS.SUCCEEDED;
         })
 
-        builder.addCase(fetchAsyncGamesDetails.rejected, (state) => {
+        builder.addCase(fetchAsyncGameDetails.rejected, (state) => {
             state.gameSingleStatus = STATUS.FAILED;
         })
     },
     reducers: {}
 });
 
-export const selectAllGames=(state)=> state.game.games.results;
-export const selectAllGamesStatus=(state)=> state.game.gamesStatus;
-export const selectGamesNextPage=(state)=> state.game.games.next;
-export const selectGamesPrevPage=(state)=> state.game.games.Previous;
-export const selectSnigleGame=(state)=> state.game.gamesSnigle;
-export const selectSnigleGameStatus=(state)=> state.game.gamesSnigleStatus;
-export const selectGamesDetails=(state)=> state.game.gamesDetails;
+export const selectAllGames = (state) => state.game.games.results;
+export const selectAllGamesStatus = (state) => state.game.gamesStatus;
+export const selectGamesNextPage = (state) => state.game.games.next;
+export const selectGamesPrevPage = (state) => state.game.games.previous;
+export const selectSingleGame = (state) => state.game.gamesSingle;
+export const selectSingleGameStatus = (state) => state.game.gamesSingleStatus;
+export const selectGamesDetails = (state) => state.game.gamesDetails;
+
+
+
 
 export default gameSlice.reducer;

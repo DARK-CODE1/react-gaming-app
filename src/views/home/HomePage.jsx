@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { Banner, Preloader, Title } from '../../components/common';
+import { Banner, ImageSlider, Preloader, Title } from '../../components/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllGames, selectAllGamesStatus } from '../../redux/store/gameSlice';
 import { useEffect } from 'react';
@@ -37,6 +37,8 @@ const HomePage = () => {
           }
         </div>
       </section>
+
+      <ImageSlider/>
     </HomeWrapper>
   )
 }
