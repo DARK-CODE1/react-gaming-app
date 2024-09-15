@@ -1,21 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import axios from '../../api/axios';
 import { Link } from 'react-router-dom';
 import { BsStar } from 'react-icons/bs';
+import { StarRating } from '../common';
 import { apiURL } from '../../constants';
 import { API_KEY } from '../../api/api_key';
-import axios from '../../api/axios';
-import { StarRating } from '../common';
 
-const GenreItem = () => {
+const GenreItem = ({ gameItem }) => {
+  const [gameData, setGameData] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await axios.get(`${apiURL.gamesURL}/${gameItem.id}?${API_KEY}`);
+      setGameData(data);
+    }
+
+    fetchData()
+  }, [gameItem.id])
+
   return (
-    <GenreItemWrapper>
+    <GenreItemWrapper className='card'>
+      <div className="card-top img-fit-cover">
+        <img src={gameData?.background_image} alt={gameData?.name} />
+        <StarRating rating={gameData?.rating} />
+        <div className="ratings-count">{gameData?.ratings_count}<BsStar className='ms-1' size={12} /></div>
+      </div>
+      <div className="card-bottom">
+        <h4 className="text-white text-uppercase card-title">
+          {gameData?.name}
+        </h4>
+        <div className="block-wrap">
+          <div className="details-group">
+            <div className="details-item d-flex align-items-center">
+              <p className="details-item-name fw-6">Release Date: &nbsp;</p>
+              <p className="details-item-value">{gameData?.released}</p>
+            </div>
+            <div className="details-item d-flex align-items-center">
+              <p className="details-item-name fw-6">Updated: &nbsp;</p>
+              <p className="details-item-value">{gameData?.updated}</p>
+            </div>
+          </div>
+          <Link to={`/games/${gameData?.id}`} className='card-button text-uppercase mt-3'>See More</Link>
+        </div>
+      </div>
     </GenreItemWrapper>
   )
 }
 
 export default GenreItem;
 
+GenreItem.propTypes = {
+  gameItem: PropTypes.object
+}
 const GenreItemWrapper = styled.div`
     display: flex;
   flex-direction: column;

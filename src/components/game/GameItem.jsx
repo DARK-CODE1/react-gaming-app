@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { BsStar } from "react-icons/bs";
 import { StarRating } from '../common';
@@ -40,7 +40,7 @@ const GameItem = ({ gameItem }) => {
 export default GameItem;
 
 GameItem.propTypes = {
-  gameItem: propTypes.object
+  gameItem: PropTypes.object
 }
 const GameItemWrapper = styled.div`
   display: flex;

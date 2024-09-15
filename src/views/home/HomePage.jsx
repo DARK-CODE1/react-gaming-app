@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { Banner, ImageSlider, Preloader, Title } from '../../components/common';
+import { Banner, ImageSlider, Preloader, Tabs, Title } from '../../components/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAllGames, selectAllGamesStatus } from '../../redux/store/gameSlice';
 import { useEffect } from 'react';
@@ -8,14 +8,20 @@ import { fetchAsyncGames } from '../../redux/utils/gameUtils';
 import { STATUS } from '../../utils/status';
 import GameList from '../../components/game/GameList';
 import { Link } from 'react-router-dom';
+import { join_image } from '../../utils/images';
+import { selectAllGenres, selectAllGenresStatus } from '../../redux/store/genreSlice';
+import { fetchAsyncGenres } from '../../redux/utils/genreUtils';
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const games = useSelector(selectAllGames);
   const gamesStatus = useSelector(selectAllGamesStatus);
+  const genre = useSelector(selectAllGenres);
+  const genreStatus = useSelector(selectAllGenresStatus);
 
   useEffect(() => {
     dispatch(fetchAsyncGames());
+    dispatch(fetchAsyncGenres());
   }, [dispatch])
 
   const rendredPopularGames = <>
@@ -38,7 +44,27 @@ const HomePage = () => {
         </div>
       </section>
 
-      <ImageSlider/>
+      <ImageSlider />
+      <section className='section sc-join d-flex align-items-center' style={{ background: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)),url(${join_image}) center/cover no-repeat` }}>
+        <div className="join-content text-white mx-auto text-center">
+          <h2 className="join-title mb-3">JOIN THE <span>COMMUNITY</span></h2>
+          <p className="lead-text">
+            Join our Discord community which is in the making and made by
+            gamers for gamers. All are welcome to join no matter the game you
+            play, we&apos;re here to have a good.
+          </p>
+          <button type='button' className='section-btn mt-4'>Join Discord</button>
+        </div>
+      </section>
+
+      <section className='section sc-genres'>
+        <div className="container">
+          <Title titleName={{ firstText: 'Top', secondText: 'Genres' }} />
+        </div>
+        {
+          genreStatus === STATUS.LOADING ? <Preloader /> : genre?.length > 0 ? <Tabs sliceValue={9} data={genre} /> : 'No Games Found!'
+        }
+      </section>
     </HomeWrapper>
   )
 }

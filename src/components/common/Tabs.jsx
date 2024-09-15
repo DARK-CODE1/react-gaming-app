@@ -1,13 +1,65 @@
-import React from 'react'
+import React, { useState } from 'react';
 import styled from "styled-components";
-const Tabs = () => {
+import PropTypes from 'prop-types';
+import { AiOutlineMenu } from "react-icons/ai";
+import { GenreItem } from '../genre';
+
+const Tabs = ({ data }) => {
+
+  const [activeTab, setActiveTab] = useState(data[0]);
+  const [tabButtonStatus, setTabButtonStatus] = useState(false);
+
+  const tabClickHandler = (id) => {
+    data.map(item => {
+      if (item.id === id) {
+        setActiveTab(item)
+      }
+    })
+  }
+
+  const tabButtonHandler = () => setTabButtonStatus(prevStatus => !prevStatus);
   return (
-    <TabsWrapper>
+    <TabsWrapper className='bg-white'>
+      <div className="container">
+        <div className="tabs-content">
+          <ul className={`tabs-buttons ${tabButtonStatus ? 'show' : ''}`}>
+
+            <button type='button' className='tabs-buttons-close bg-white d-flex align-items-center justify-content-center' onClick={tabButtonHandler}>
+              <AiOutlineMenu size={22} />
+            </button>
+            {
+              data.map(item => {
+                return (
+                  <li key={item?.id} className={`tabs-button ${item?.id === activeTab.id ? 'tabs-active' : ''}`}>
+                    <button className='text-white' type='button' onClick={() => tabClickHandler(item?.id)}>
+                      {item?.name}
+                    </button>
+                  </li>
+                )
+              })
+            }
+          </ul>
+          <div className="tabs-body">
+            <div className="card-list">
+              {
+                activeTab?.games?.map(item => (
+                  <GenreItem key={item.id} gameItem={item} />
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
     </TabsWrapper>
   )
 }
 
 export default Tabs;
+
+Tabs.propTypes = {
+  data: PropTypes.array,
+  sliceValue: PropTypes.number
+}
 
 const TabsWrapper = styled.div`
   position: relative;
@@ -91,5 +143,5 @@ const TabsWrapper = styled.div`
   }
 `;
 
-    
+
 
