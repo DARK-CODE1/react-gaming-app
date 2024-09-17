@@ -8,9 +8,12 @@ import { fetchAsyncGames } from '../../redux/utils/gameUtils';
 import { STATUS } from '../../utils/status';
 import GameList from '../../components/game/GameList';
 import { Link } from 'react-router-dom';
-import { join_image } from '../../utils/images';
+import { join_image, store_image } from '../../utils/images';
 import { selectAllGenres, selectAllGenresStatus } from '../../redux/store/genreSlice';
 import { fetchAsyncGenres } from '../../redux/utils/genreUtils';
+import { selectAllStores, selectAllStoresStatus } from '../../redux/store/storeSlice';
+import { StoreList } from '../../components/store/index';
+import { fetchAsyncStores } from '../../redux/utils/storeUtils';
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -18,10 +21,13 @@ const HomePage = () => {
   const gamesStatus = useSelector(selectAllGamesStatus);
   const genre = useSelector(selectAllGenres);
   const genreStatus = useSelector(selectAllGenresStatus);
+  const stores = useSelector(selectAllStores);
+  const storesStatus = useSelector(selectAllStoresStatus);
 
   useEffect(() => {
     dispatch(fetchAsyncGames());
     dispatch(fetchAsyncGenres());
+    dispatch(fetchAsyncStores());
   }, [dispatch])
 
   const rendredPopularGames = <>
@@ -64,6 +70,15 @@ const HomePage = () => {
         {
           genreStatus === STATUS.LOADING ? <Preloader /> : genre?.length > 0 ? <Tabs sliceValue={9} data={genre} /> : 'No Games Found!'
         }
+      </section>
+
+      <section className='section sc-stores' style={{ background: `linear-gradient(180deg, rgba(12, 10, 36, 0.73),rgba(0, 0, 0, 0.73)),url(${store_image}) center/cover no-repeat` }}>
+        <div className="container">
+          <Title titleName={{ firstText: 'Our', secondText: 'Game Stores' }} />
+          {
+            storesStatus === STATUS.LOADING ? <Preloader /> : stores?.length > 0 ? <StoreList stores={stores} /> : 'No Stores Found!'
+          }
+        </div>
       </section>
     </HomeWrapper>
   )

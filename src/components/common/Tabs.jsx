@@ -10,6 +10,7 @@ const Tabs = ({ data }) => {
   const [tabButtonStatus, setTabButtonStatus] = useState(false);
 
   const tabClickHandler = (id) => {
+    // eslint-disable-next-line array-callback-return
     data.map(item => {
       if (item.id === id) {
         setActiveTab(item)

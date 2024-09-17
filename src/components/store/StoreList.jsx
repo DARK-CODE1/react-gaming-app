@@ -1,14 +1,27 @@
 import React from 'react';
 import styled from "styled-components";
-const StoreList = () => {
+import propTypes from 'prop-types';
+import StoreItem from './StoreItem';
+
+const StoreList = ({ stores }) => {
     return (
         <StoreListWrapper>
+            <div className="store-list d-grid">
+                {
+                    stores?.map(item => (
+                        <StoreItem key={item.id} storeItem={item} />
+                    ))
+                }
+            </div>
         </StoreListWrapper>
     )
 }
 
 export default StoreList;
 
+StoreList.propTypes = {
+    stores: propTypes.array,
+}
 const StoreListWrapper = styled.div`
     .store-list{
         @media screen and (min-width: 992px){
