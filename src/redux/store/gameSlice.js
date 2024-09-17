@@ -5,9 +5,8 @@ import { fetchAsyncGames, fetchAsyncGameDetails } from "../utils/gameUtils";
 const initialState = {
     games: [],
     gamesStatus: STATUS.IDLE,
-    gamesSingle: [],
+    gamesSingle: {},
     gamesSingleStatus: STATUS.IDLE,
-    gameDetails: []
 }
 
 const gameSlice = createSlice({
@@ -28,16 +27,16 @@ const gameSlice = createSlice({
         })
 
         builder.addCase(fetchAsyncGameDetails.pending, (state) => {
-            state.gameSingleStatus = STATUS.LOADING;
+            state.gamesSingleStatus = STATUS.LOADING;
         })
 
         builder.addCase(fetchAsyncGameDetails.fulfilled, (state, action) => {
-            state.gameSingle = action.payload;
-            state.gameSingleStatus = STATUS.SUCCEEDED;
+            state.gamesSingle = action.payload;
+            state.gamesSingleStatus = STATUS.SUCCEEDED;
         })
 
         builder.addCase(fetchAsyncGameDetails.rejected, (state) => {
-            state.gameSingleStatus = STATUS.FAILED;
+            state.gamesSingleStatus = STATUS.FAILED;
         })
     },
     reducers: {}
@@ -49,7 +48,6 @@ export const selectGamesNextPage = (state) => state.game.games.next;
 export const selectGamesPrevPage = (state) => state.game.games.previous;
 export const selectSingleGame = (state) => state.game.gamesSingle;
 export const selectSingleGameStatus = (state) => state.game.gamesSingleStatus;
-export const selectGamesDetails = (state) => state.game.gamesDetails;
 
 
 

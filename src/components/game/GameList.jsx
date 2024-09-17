@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import GameItem from './GameItem';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const GameList = ({ games, sliceValue = games.length }) => {
   return (
@@ -20,8 +20,8 @@ const GameList = ({ games, sliceValue = games.length }) => {
 export default GameList;
 
 GameList.propTypes = {
-  games: propTypes.array,
-  sliceValue: propTypes.number
+  games: PropTypes.array,
+  sliceValue: PropTypes.number
 }
 
 const GameListWrapper = styled.div`
