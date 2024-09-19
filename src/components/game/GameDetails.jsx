@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from 'prop-types';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import StoreItem from '../store/index';
+import {StoreItem} from '../store/index';
 import { AiFillClockCircle, AiFillSetting, AiFillTags, AiOutlineDesktop } from "react-icons/ai";
 import { FaGlobe } from 'react-icons/fa';
 const GameDetails = ({ gameData }) => {
@@ -99,7 +99,7 @@ const GameDetails = ({ gameData }) => {
                   <div className="platform-item text-white" key={item?.platform?.id}>
                     <p className="platform-name mb-2">{item?.platform?.name}</p>
                     <div className="platform-img-wrapper img-fit-cover">
-                      <img src={item?.platform?.image_background} className='platform-img' />
+                      <img src={item?.platform?.image_background} alt={item?.platform?.name} className='platform-img' />
                     </div>
                   </div>
                 )
@@ -107,7 +107,16 @@ const GameDetails = ({ gameData }) => {
             }
           </div>
         </TabPanel>
-        <TabPanel></TabPanel>
+        <TabPanel>
+          <h3 className="text-white mb-3">Available Store</h3>
+          <div className="card-list">
+            {
+              gameData?.stores?.map((item)=>(
+                <StoreItem key={item?.store?.id} storeItem={item?.store}/>
+              ))
+            }
+          </div>
+        </TabPanel>
       </Tabs>
     </GameDetailsWrapper>
   )
