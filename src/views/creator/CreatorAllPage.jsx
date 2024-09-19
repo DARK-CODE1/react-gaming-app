@@ -5,6 +5,7 @@ import { selectAllCreators, selectAllCreatorsStatus, selectCreatorsNextPage, sel
 import { fetchAsyncCreators } from '../../redux/utils/creatorUtils';
 import { Pagination, Preloader, Title } from '../../components/common';
 import { STATUS } from '../../utils/status';
+import CreatorList from '../../components/creator/CreatorList';
 const CreatorAllPage = () => {
     const dispatch = useDispatch();
     const creators = useSelector(selectAllCreators);
@@ -27,6 +28,12 @@ const CreatorAllPage = () => {
                         firstText: "all ",
                         secondText: "Creators"
                     }} />
+                    {
+                        creatorsStatus === STATUS.LOADING ? <Preloader /> : creators?.length > 0 ? <>
+                            <CreatorList creators={creators} />
+                            <Pagination pageHandler={pageHandler} nextPage={nextPage} prevPage={prevPage} currentPage={page} />
+                        </> : "No Creator found!"
+                    }
                 </div>
             </div>
         </CreatorAllPageWrapper>

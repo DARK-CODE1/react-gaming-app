@@ -1,14 +1,44 @@
 import React from 'react';
 import styled from "styled-components";
-const CreatorItem = () => {
+import PropTypes from 'prop-types';
+
+const CreatorItem = ({ creatorItem }) => {
+  const positions = creatorItem?.positions?.map(position => position?.name);
+  const games = creatorItem?.games?.map(games => games?.name);
+
   return (
-    <CreatorItemWrapper>
+    <CreatorItemWrapper className='card' style={{
+      background: `linear-gradient(rgba(7, 5, 27, 0.9), rgba(0, 0, 0, 0.95)),
+        url(${creatorItem?.image_background}) center/cover no-repeat`
+    }}>
+      <div className="card-top img-fit-cover">
+        <img src={creatorItem?.image} alt={creatorItem?.name} />
+      </div>
+      <div className="card-bottom text-white">
+        <h4 className="card-title">{creatorItem?.name}</h4>
+        <ul className="card-list-group text-white">
+          <li className='list-group-item'>
+            <span className="item-left">Games Count : </span>
+            <span className="item-right">{creatorItem?.games_count}</span>
+          </li>
+          <li className='list-group-item'>
+            <span className="item-left">Positions : </span>
+            <span className="item-right">{positions.length > 0 ? positions.join(' , ') : 'N/A'}</span>
+          </li>
+          <li className='list-group-item'>
+            <span className="item-left">Games : </span>
+            <span className="item-right">{games.length > 0 ? games.join(' , ') : 'N/A'}</span>
+          </li>
+        </ul>
+      </div>
     </CreatorItemWrapper>
   )
 }
 
 export default CreatorItem;
-
+CreatorItem.propTypes = {
+  creatorItem: PropTypes.object
+}
 const CreatorItemWrapper = styled.div`
   min-height: 360px;
   margin-bottom: 80px;
