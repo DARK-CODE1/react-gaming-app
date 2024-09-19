@@ -20,7 +20,7 @@ const StoreAllPage = () => {
       <div className='sc-games section'>
         <div className='container'>
           <Title titleName={{
-            firstText: "all",
+            firstText: "all ",
             secondText: "Stores"
           }} />
           {

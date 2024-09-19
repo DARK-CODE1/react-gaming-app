@@ -43,7 +43,7 @@ const HomePage = () => {
 
       <section className='section sc-popular'>
         <div className="container">
-          <Title titleName={{ firstText: 'Top popular', secondText: 'Games' }} />
+          <Title titleName={{ firstText: 'Top popular ', secondText: 'Games' }} />
           {
             gamesStatus === STATUS.LOADING ? <Preloader /> : games?.length > 0 ? rendredPopularGames : 'No Games Found!'
           }
@@ -65,7 +65,7 @@ const HomePage = () => {
 
       <section className='section sc-genres'>
         <div className="container">
-          <Title titleName={{ firstText: 'Top', secondText: 'Genres' }} />
+          <Title titleName={{ firstText: 'Top ', secondText: 'Genres' }} />
         </div>
         {
           genreStatus === STATUS.LOADING ? <Preloader /> : genre?.length > 0 ? <Tabs sliceValue={9} data={genre} /> : 'No Games Found!'
@@ -74,7 +74,7 @@ const HomePage = () => {
 
       <section className='section sc-stores' style={{ background: `linear-gradient(180deg, rgba(12, 10, 36, 0.73),rgba(0, 0, 0, 0.73)),url(${store_image}) center/cover no-repeat` }}>
         <div className="container">
-          <Title titleName={{ firstText: 'Our', secondText: 'Game Stores' }} />
+          <Title titleName={{ firstText: 'Our ', secondText: 'Game Stores' }} />
           {
             storesStatus === STATUS.LOADING ? <Preloader /> : stores?.length > 0 ? <StoreList stores={stores} /> : 'No Stores Found!'
           }
