@@ -1,8 +1,50 @@
 import React from 'react';
 import styled from "styled-components";
+import { AiOutlineSend } from "react-icons/ai";
 const Footer = () => {
   return (
     <FooterWrapper>
+      <div className="footer-top">
+        <div className="footer-content text-white d-grid container">
+          <div className="footer-item">
+            <a href="#title" className="navbar-brand text-white text-uppercase no-wrap d-block">
+              cool <span>games</span>
+            </a>
+            <p className="text-para">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore enim similique repellendus </p>
+          </div>
+          <div className="footer-item">
+            <h5 className='footer-item-title text-uppercase'>Supports</h5>
+            <ul className="footer-item-links">
+              <li><a href="#Gaming" className="text-white">Gaming</a></li>
+              <li><a href="#Product" className="text-white">Product</a></li>
+              <li><a href="#Social_Network" className="text-white">Social Network</a></li>
+              <li><a href="#Community" className="text-white">Community</a></li>
+            </ul>
+          </div>
+          <div className="footer-item">
+            <h5 className='footer-item-title text-uppercase'>quick links</h5>
+            <ul className="footer-item-links">
+              <li><a href="#Setting" className="text-white">Setting & Privacy</a></li>
+              <li><a href="#Help" className="text-white">Help & Support</a></li>
+              <li><a href="#Live_Actions" className="text-white">Live Actions</a></li>
+              <li><a href="#Our_News" className="text-white">Our News</a></li>
+            </ul>
+          </div>
+          <div className="footer-item">
+            <h5 className='footer-item-title text-uppercase'>Newsletter</h5>
+            <p className="text-para">Subscribe our newsletter to get our latest update & news.</p>
+            
+            <form className="newsletter-form">
+              <div className="input-group d-flex align-items-strtch">
+                <input type="text" className='input-group-field' placeholder='Your email address' />
+                <button className='input-group-btn bg-white d-inline-flex align-items-center justify-content-center'>
+                  <AiOutlineSend size={18}></AiOutlineSend>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </FooterWrapper>
   )
 }
